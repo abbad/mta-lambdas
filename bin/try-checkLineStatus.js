@@ -9,4 +9,4 @@ var fakeLambdaContext = {
   }
 };
 
-getLineStatusModule.getLineStatus({lineName: "l"}, fakeLambdaContext);
+getLineStatusModule.getLineStatus({lineName: "L"}, fakeLambdaContext);

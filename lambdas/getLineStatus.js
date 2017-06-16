@@ -7,6 +7,9 @@ type args = {
 };
 
 export function getLineStatus(options: args, context: any): void {
+  console.log(`getLineStatus is called with the following options
+    ${JSON.stringify(options, null, 4)}`);
+
   const maxTries = 4;
   const serviceType = options.serviceType || null;
   let finalResult = '';
