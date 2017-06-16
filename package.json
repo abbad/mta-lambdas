@@ -1,0 +1,27 @@
+{
+  "name": "slack_bot_lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "slack_bot_lambda": "try-hello.js"
+  },
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-syntax-flow": "^6.18.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
+    "json-loader": "^0.5.4",
+    "mta-gtfs": "^1.0.3",
+    "webpack": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+   "start": "webpack --watch",
+   "prepublish": "webpack",
+   "test": "mocha --compilers js:babel-core/register --recursive tests/"
+  },
+  "author": "Abbad",
+  "license": "ISC"
+}
