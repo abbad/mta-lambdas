@@ -9,4 +9,26 @@ var fakeLambdaContext = {
   }
 };
 
-getLineStatusModule.getLineStatus({lineName: "L"}, fakeLambdaContext);
+const lexRequest = {
+    "messageVersion": "1.0",
+    "invocationSource": "FulfillmentCodeHook",
+    "userId": "351iawvszfk85ln1lqo0lc96h7dyvs9n",
+    "sessionAttributes": null,
+    "bot": {
+        "name": "TransitBot",
+        "alias": null,
+        "version": "$LATEST"
+    },
+    "outputDialogMode": "Text",
+    "currentIntent": {
+        "name": "transitStatus",
+        "slots": {
+            "lineName": "L"
+        },
+        "confirmationStatus": "None"
+    },
+    "inputTranscript": "L"
+};
+
+
+getLineStatusModule.getLineStatus(lexRequest, fakeLambdaContext);

@@ -3,7 +3,7 @@ var Mta = require('mta-gtfs');
 
 /* @flow */
 type args = {
-  lineName: string
+  currentIntent: string
 };
 
 export function getLineStatus(options: args, context: any): void {
@@ -11,7 +11,7 @@ export function getLineStatus(options: args, context: any): void {
     ${JSON.stringify(options, null, 4)}`);
 
   const maxTries = 4;
-  const serviceType = options.serviceType || null;
+  const lineName = options.currentIntent.slots.lineName;
   let finalResult = '';
   const mta_object = new Mta({
     key: 'MY-MTA-API-KEY-HERE', // only needed for mta.schedule() method
@@ -22,7 +22,7 @@ export function getLineStatus(options: args, context: any): void {
     for (var key in result) {
       if (result.hasOwnProperty(key)) {
         finalResult = result[key].filter(function(item){
-          return item.name == options.lineName;
+          return item.name == lineName;
         })
         if (finalResult != '')
           break;
