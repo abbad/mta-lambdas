@@ -16,11 +16,13 @@
     "mta-gtfs": "^1.0.3",
     "webpack": "^2.6.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^3.4.2"
+  },
   "scripts": {
-   "start": "webpack --watch",
-   "prepublish": "webpack",
-   "test": "mocha --compilers js:babel-core/register --recursive tests/"
+    "start": "webpack --watch",
+    "prepublish": "webpack",
+    "test": "mocha --compilers js:babel-core/register --recursive tests/"
   },
   "author": "Abbad",
   "license": "ISC"

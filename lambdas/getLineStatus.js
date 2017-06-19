@@ -6,7 +6,18 @@ type args = {
   currentIntent: string
 };
 
-export function getLineStatus(options: args, context: any): void {
+
+const dialogActionTypes = {
+  ElicitIntent: "ElicitIntent",
+  ElicitSlot: "ElicitSlot",
+  ConfirmIntent: "ConfirmIntent",
+  Delegate: "Delegate",
+  Close: "Close"};
+
+const dialogActionfulfillmenetStates = {Fulfilled: "Fulfilled",
+Failed: "Failed"};
+
+export function getLineStatus(options: args, context: any, callback: func): void {
   console.log(`getLineStatus is called with the following options
     ${JSON.stringify(options, null, 4)}`);
 
@@ -40,9 +51,25 @@ export function getLineStatus(options: args, context: any): void {
       triesSoFar++;
       setTimeout(wait, 2000);
     } else{
-      let str = JSON.stringify(finalResult, null, 4);
-      context.succeed(`${str}`);
+      const str = JSON.stringify(finalResult, null, 4);
+      const response = JSON.stringify(createResponse(str, null, 4));
+
+      context.succeed(response);
     }
   };
   wait();
+}
+
+function createResponse(result) {
+  const response = {
+    "dialogAction": {
+      "type": dialogActionTypes.close,
+      "Fulfilled": dialogActionfulfillmenetStates.Fulfilled,
+      "message": {
+      "contentType": "PlainText",
+      "content": `${result}`,
+      },
+    }
+  }
+  return response;
 }
