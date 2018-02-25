@@ -23,11 +23,11 @@ const lexRequest = {
     "currentIntent": {
         "name": "transitStatus",
         "slots": {
-            "lineName": "L"
+            "lineName": "NQR"
         },
         "confirmationStatus": "None"
     },
-    "inputTranscript": "L"
+    "inputTranscript": "NQR"
 };
 
 

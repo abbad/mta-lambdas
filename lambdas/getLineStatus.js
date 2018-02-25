@@ -1,6 +1,7 @@
 // lambdas/getLineStatus.js
 
 var Mta = require('mta-gtfs');
+var TurndownService = require('turndown/lib/turndown.umd.js');
 
 // @flow
 type payload = {
@@ -19,6 +20,37 @@ const dialogActionfulfillmenetStates = {
   Fulfilled: "Fulfilled",
   Failed: "Failed"
 };
+
+function parseMtaResponse(finalResult) {
+  const result = finalResult[0];
+  
+  return {
+    name: result.name, 
+    status: result.status,
+    text: turnDown(result.text), 
+    date: result.date, 
+    time: result.time,
+  }
+}
+
+function turnDown(text) {
+  const turndownService = new TurndownService();
+  return turndownService.turndown(text);
+}
+
+function createLambdaResponse(result) {
+  const response = {
+    "dialogAction": {
+      "type": dialogActionTypes.close,
+      "Fulfilled": dialogActionfulfillmenetStates.Fulfilled,
+      "message": {
+      "contentType": "PlainText",
+      "content": result,
+      },
+    }
+  }
+  return response;
+}
 
 export function getLineStatus(options: payload, context: any, callback: func): void {
   console.log(
@@ -54,26 +86,13 @@ export function getLineStatus(options: payload, context: any, callback: func): v
       console.log('waiting');
       triesSoFar++;
       setTimeout(wait, 2000);
-    } else {
-      const str = JSON.stringify(finalResult, null, 4);
-      const response = JSON.stringify(createResponse(str, null, 4));
+    } else {    
+      const mtaResponse = parseMtaResponse(finalResult);
+      debugger;
+      const response = JSON.stringify(createLambdaResponse(mtaResponse));
 
       context.succeed(response);
     }
   };
   wait();
-}
-
-function createResponse(result) {
-  const response = {
-    "dialogAction": {
-      "type": dialogActionTypes.close,
-      "Fulfilled": dialogActionfulfillmenetStates.Fulfilled,
-      "message": {
-      "contentType": "PlainText",
-      "content": `${result}`,
-      },
-    }
-  }
-  return response;
 }
