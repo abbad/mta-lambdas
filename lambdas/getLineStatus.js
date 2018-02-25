@@ -88,7 +88,6 @@ export function getLineStatus(options: payload, context: any, callback: func): v
       setTimeout(wait, 2000);
     } else {    
       const mtaResponse = parseMtaResponse(finalResult);
-      debugger;
       const response = JSON.stringify(createLambdaResponse(mtaResponse));
 
       context.succeed(response);
