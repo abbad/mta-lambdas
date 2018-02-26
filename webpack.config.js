@@ -22,7 +22,6 @@ module.exports = {
   },
   target: "node",
   module: {
-    noParse: [/node_modules\/ws/, /node_modules\/jsdom/],    
     loaders: [
       {
         test: /\.js$/,
@@ -39,5 +38,4 @@ module.exports = {
       }
     ]
   },
-  externals: ['ws', 'jsdom']
 };
