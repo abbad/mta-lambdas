@@ -15,24 +15,17 @@ const dialogActionfulfillmenetStates = {
 
 export function parseMtaResponse(finalResult) {
   const result = finalResult[0];
-    
-  return {
-    name: result.name, 
-    status: result.status,
-    date: result.date, 
-    time: result.time,
-    text: sanitizeAndMarkDown(result.text), 
-  }
+  return `${result.status} ${sanitizeAndMarkDown(result.text)}`
 }
   
 export function createLambdaResponse(result) {
   const response = {
     "dialogAction": {
-    "type": dialogActionTypes.close,
-    "Fulfilled": dialogActionfulfillmenetStates.Fulfilled,
-    "message": {
-      "contentType": "PlainText",
-      "content": result,
+      "type": dialogActionTypes.Close,
+      "fulfillmentState": dialogActionfulfillmenetStates.Fulfilled,
+      "message": {
+        "contentType": "PlainText",
+        "content": result,
       },
     }
   }
