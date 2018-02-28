@@ -5,10 +5,10 @@ var requestSamples = require("./request_samples")
 
 var fakeLambdaContext = {
   succeed: function succeed(results) {
-    console.log(results);
+    console.log(JSON.stringify(results, null, 4));
     
     process.exit(0);
   }
 };
 
-getLineStatusModule.getLineStatus(requestSamples.lexRequestBasicRequest, fakeLambdaContext);
+getLineStatusModule.getLineStatus(requestSamples.lexRequestWithLineName('1'), fakeLambdaContext);

@@ -1,3 +1,5 @@
+// @flow
+
 var converter = require('html-to-markdown');
 
 const dialogActionTypes = {
@@ -32,6 +34,25 @@ export function createLambdaResponse(result) {
   return response;
 }
 
+export function mapLineToService(lineName: string): string {
+  
+  switch(lineName) {
+    case "1" || "2" || "3":
+      return "123"    
+    case "N" || "Q" || "R":
+      return "NQR"
+    case "A" || "C" || "E":
+      return "ACE"
+    case "L":
+      return "L"
+    default:
+      return "L" // Change this.
+  }
+}
+
 function sanitizeAndMarkDown(text) {
-  return converter.convert(text.replace(/<br>|<br\/>/g, ''));
+  let markedDown = converter.convert(text);
+  return markedDown.replace(/<\/?span[^>]*>/g,"")
+    .replace(/<\/?br[^>]*>/g, '\n').replace(/<\/?a[^>]*>/g,"")
+    .replace(/<\/?font[^>]*>/);
 }

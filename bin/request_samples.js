@@ -49,5 +49,28 @@ module.exports = Object.freeze({
         "confirmationStatus": "None"
     },
     "inputTranscript": "is the L train running"
+  },
+  lexRequestWithLineName: function(lineName) {
+    return {
+      "messageVersion": "1.0",
+      "invocationSource": "FulfillmentCodeHook",
+      "userId": "mfx1g3gaxc4wc2w0bhyofzs3l21fbqca",
+      "sessionAttributes": {},
+      "requestAttributes": null,
+      "bot": {
+          "name": "TransitBot",
+          "alias": "$LATEST",
+          "version": "$LATEST"
+      },
+      "outputDialogMode": "Text",
+      "currentIntent": {
+          "name": "transitStatus",
+          "slots": {
+              "lineName": lineName
+          },
+          "confirmationStatus": "None"
+      },
+      "inputTranscript": "is the L train running"
+    }
   }
 });

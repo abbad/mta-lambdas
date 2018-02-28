@@ -2,7 +2,7 @@
 
 var Mta = require('mta-gtfs');
 
-import { parseMtaResponse, createLambdaResponse } from "./utils";
+import { createLambdaResponse, mapLineToService, parseMtaResponse } from "./utils";
 
 // @flow
 type payload = {
@@ -24,7 +24,8 @@ export function getLineStatus(options: payload, context: any, callback: func): v
   );
   
   const maxTries = 4;
-  const lineName = getLineName(options);
+  let lineName = getLineName(options);
+  lineName = mapLineToService(lineName.toUpperCase());
   const mtaBroker = new Mta({
     key: 'MY-MTA-API-KEY-HERE', // only needed for mta.schedule() method
     feed_id: 1                  // optional, default = 1
