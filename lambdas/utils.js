@@ -1,6 +1,6 @@
 // @flow
 
-var converter = require('html-to-markdown');
+var slackify = require('slackify-html');
 
 const dialogActionTypes = {
   ElicitIntent: "ElicitIntent",
@@ -17,7 +17,12 @@ const dialogActionfulfillmenetStates = {
 
 export function parseMtaResponse(finalResult) {
   const result = finalResult[0];
-  return `${result.status} ${sanitizeAndMarkDown(result.text)}`
+
+  if (result.status === 'GOOD SERVICE') {
+    return 'It is running as expected.'
+  } else {
+    return sanitizeAndMarkDown(result.text);
+  }
 }
   
 export function createLambdaResponse(result) {
@@ -50,9 +55,7 @@ export function mapLineToService(lineName: string): string {
   }
 }
 
-function sanitizeAndMarkDown(text) {
-  let markedDown = converter.convert(text);
-  return markedDown.replace(/<\/?span[^>]*>/g,"")
-    .replace(/<\/?br[^>]*>/g, '\n').replace(/<\/?a[^>]*>/g,"")
-    .replace(/<\/?font[^>]*>/);
+function sanitizeAndMarkDown(text: string): string {
+  return slackify(text).replace(/<|>|undefined|\r|\n|\|/g, '')
+    .replace(/-/g, ' - ').replace(/_/g, ' _ ');
 }

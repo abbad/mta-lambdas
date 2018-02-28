@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "flow-bin": "^0.66.0",
-    "html-to-markdown": "^1.0.0",
-    "mta-gtfs": "^1.0.3"
+    "mta-gtfs": "^1.0.3",
+    "slackify-html": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
