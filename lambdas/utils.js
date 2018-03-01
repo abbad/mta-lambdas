@@ -2,6 +2,7 @@
 
 var slackify = require('slackify-html');
 
+
 const dialogActionTypes = {
   ElicitIntent: "ElicitIntent",
   ElicitSlot: "ElicitSlot",
@@ -57,5 +58,5 @@ export function mapLineToService(lineName: string): string {
 
 function sanitizeAndMarkDown(text: string): string {
   return slackify(text).replace(/<|>|undefined|\r|\n|\|/g, '')
-    .replace(/-/g, ' - ').replace(/_/g, ' _ ');
+    .replace(/-/g, ' - ').replace(/_/g, ' _ ').replace(/\*/, " * ");
 }
